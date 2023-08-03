@@ -1,23 +1,32 @@
 import PropTypes from 'prop-types';
 import { destinations } from '../../destinations';
+import {
+  TourItem,
+  TourImage,
+  TourInfoBlock,
+  TourInfoCity,
+  TourInfoDate,
+} from './ToursList.styled';
 
-export const ToursListItem = ({ tourInfo }) => {
+export const ToursListItem = ({ tourInfo, getForecast }) => {
   if (tourInfo !== []) {
     const cityImg = destinations.find(
       element => element.name === tourInfo.city,
     ).imageURL;
     return (
-      <li className="ToursListItem">
-        <img
-          src={cityImg}
-          alt={tourInfo.city}
-          className="ToursListItem-image"
-        />
-        <p>{tourInfo.city}</p>
-        <p>
-          {tourInfo.startDate}-{tourInfo.endDate}
-        </p>
-      </li>
+      <TourItem
+        onClick={() =>
+          getForecast(tourInfo.city, tourInfo.startDate, tourInfo.endDate)
+        }
+      >
+        <TourImage src={cityImg} alt={tourInfo.city} />
+        <TourInfoBlock>
+          <TourInfoCity>{tourInfo.city}</TourInfoCity>
+          <TourInfoDate>
+            {tourInfo.startDate}-{tourInfo.endDate}
+          </TourInfoDate>
+        </TourInfoBlock>
+      </TourItem>
     );
   }
 };
