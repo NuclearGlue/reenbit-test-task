@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import magnifyingGlass from './magnifying-glass.svg';
 export const SearchInput = styled.input`
-  display: block;
   font-size: 14px;
   line-height: 19px;
   width: 50%;

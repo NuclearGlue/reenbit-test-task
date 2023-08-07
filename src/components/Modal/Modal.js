@@ -1,12 +1,27 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
-import { ModalWindow, ModalBlock } from './Modal.styled';
+import {
+  ModalWindow,
+  ModalBlock,
+  ModalTitle,
+  ModalForm,
+  ModalSelect,
+  ModalLabel,
+  ModalInput,
+  ModalButtonsBlock,
+  CrossModal,
+  ModalCrossClose,
+  ModalButtonCancel,
+  ModalButtonSave,
+} from './Modal.styled';
 
-export const Modal = ({ onSubmit, toggleModal }) => {
+export const Modal = ({ onSubmit, closeModal }) => {
+  let toadyDate = new Date();
   const [city, setCity] = useState('Berlin');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [maxDate, setMaxDate] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -25,32 +40,45 @@ export const Modal = ({ onSubmit, toggleModal }) => {
     setCity('');
     setStartDate('');
     setEndDate('');
-    toggleModal();
+    closeModal();
   };
 
-  const handleInputChange = event => {
-    if (event.currentTarget.name === 'city') {
-      setCity(event.currentTarget.value);
-    } else if (event.currentTarget.name === 'trip-start') {
-      setStartDate(event.currentTarget.value);
-    } else if (event.currentTarget.name === 'trip-end') {
-      setEndDate(event.currentTarget.value);
-    }
+  const handleCityChange = event => {
+    setCity(event.currentTarget.value);
   };
 
-  let toadyDate = new Date();
+  const handleStartDateChange = event => {
+    const newStartDate = event.currentTarget.value;
+    setStartDate(newStartDate);
+
+    const maxEndDate = new Date(newStartDate);
+
+    setMaxDate(
+      new Date(maxEndDate.getTime() + 15 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split('T')[0],
+    );
+  };
+
+  const handleEndDateChange = event => {
+    setEndDate(event.target.value);
+  };
 
   return (
     <ModalWindow>
       <ModalBlock>
-        <h2>Create Trip</h2>
-        <button type="button">Close</button>
-        <form onSubmit={handleSubmit}>
-          <label for="city">City</label>
-          <select
+        <ModalTitle>
+          <h2>Create trip</h2>
+          <ModalCrossClose type="button" onClick={closeModal}>
+            <CrossModal />
+          </ModalCrossClose>
+        </ModalTitle>
+        <ModalForm onSubmit={handleSubmit}>
+          <ModalLabel for="city">City</ModalLabel>
+          <ModalSelect
             id="city"
             name="city"
-            onChange={handleInputChange}
+            onChange={handleCityChange}
             value={city}
             required
           >
@@ -61,10 +89,10 @@ export const Modal = ({ onSubmit, toggleModal }) => {
             <option value="Mexico City">Mexico City</option>
             <option value="Madrid">Madrid</option>
             <option value="Rome">Rome</option>
-          </select>
-          <label for="start">Start date</label>
-          <input
-            type="date"
+          </ModalSelect>
+          <ModalLabel>Start date</ModalLabel>
+          <ModalInput
+            type="text"
             id="start"
             name="trip-start"
             value={startDate}
@@ -74,28 +102,34 @@ export const Modal = ({ onSubmit, toggleModal }) => {
                 .toISOString()
                 .split('T')[0]
             }
-            onChange={handleInputChange}
+            onChange={handleStartDateChange}
+            placeholder="Select date"
+            onFocus={e => (e.target.type = 'date')}
+            onBlur={e => (e.target.type = 'text')}
             required
-          ></input>
+          ></ModalInput>
 
-          <label for="end">End date</label>
-          <input
-            type="date"
+          <ModalLabel>End date</ModalLabel>
+          <ModalInput
+            type="text"
             id="end"
             name="trip-end"
             value={endDate}
             min={toadyDate.toISOString().split('T')[0]}
-            max={
-              new Date(toadyDate.getTime() + 15 * 24 * 60 * 60 * 1000)
-                .toISOString()
-                .split('T')[0]
-            }
-            onChange={handleInputChange}
+            max={maxDate}
+            onChange={handleEndDateChange}
+            placeholder="Select date"
+            onFocus={e => (e.target.type = 'date')}
+            onBlur={e => (e.target.type = 'text')}
             required
-          ></input>
-          <button type="button">Cancel</button>
-          <button type="submit">Save</button>
-        </form>
+          ></ModalInput>
+          <ModalButtonsBlock>
+            <ModalButtonCancel type="button" onClick={closeModal}>
+              Cancel
+            </ModalButtonCancel>
+            <ModalButtonSave type="submit">Save</ModalButtonSave>
+          </ModalButtonsBlock>
+        </ModalForm>
       </ModalBlock>
     </ModalWindow>
   );
@@ -103,5 +137,5 @@ export const Modal = ({ onSubmit, toggleModal }) => {
 
 Modal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };

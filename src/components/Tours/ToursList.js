@@ -12,7 +12,7 @@ import {
   ArrowRight,
 } from './ToursList.styled';
 
-export const ToursList = ({ tours, toggleModal, getForecast }) => {
+export const ToursList = ({ tours, openModal, getForecast }) => {
   const [startIndex, setStartIndex] = useState(0);
 
   const handleNext = () => {
@@ -45,7 +45,7 @@ export const ToursList = ({ tours, toggleModal, getForecast }) => {
         <ArrowRight onClick={handleNext} />
       </TourList>
 
-      <AddTourButton type="button" onClick={toggleModal}>
+      <AddTourButton type="button" onClick={openModal}>
         <BsPlusLgIcon />
         <AddTourButtonText>Add trip</AddTourButtonText>
       </AddTourButton>
@@ -59,4 +59,6 @@ ToursList.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   ),
+  openModal: PropTypes.func.isRequired,
+  getForecast: PropTypes.func.isRequired,
 };

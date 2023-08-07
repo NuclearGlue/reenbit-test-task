@@ -27,7 +27,7 @@ function App() {
     :JSON.parse(localStorage.getItem("tours"))
   );
   const [filter, setFilter] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [todayWeather, setTodayWeather] = useState({});
   const [allWeather, setAllWeather] = useState({});
   const [currentCity, setCurrentCity] = useState('');
@@ -49,7 +49,6 @@ useEffect(() => {
 }, [tours]);
   
   const addTours = data => {
-    console.log('Adding tour:', data);
     setTours([data, ...tours]);
   };
 
@@ -65,9 +64,14 @@ useEffect(() => {
     );
   };
 
-  const toggleModal = () => {
-setModalOpen(!modalOpen)
-  }
+ const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
   
    const getForecast = async (city, startDate, endDate) => {
      const weatherInfo = await fetchForecast(city, startDate, endDate);
@@ -75,7 +79,6 @@ setModalOpen(!modalOpen)
      setAllWeather(weatherInfo.allDays)
      setCurrentCity(city)
 setTourStart(startDate)
-     console.log(weatherInfo)
    };
   
   return (
@@ -83,9 +86,9 @@ setTourStart(startDate)
       <div >
       <h1>Weather Forecast</h1>
       <Searchbar filter={filter} changeFilter={changeFilter} />
-      <ToursList tours={getVisibleTours()} toggleModal={toggleModal} getForecast={getForecast} />
+      <ToursList tours={getVisibleTours()} openModal={openModal} getForecast={getForecast} />
         {currentCity!==''&&<LongTimeWeather data={allWeather} />}
-        {modalOpen && <Modal onSubmit={addTours} toggleModal={toggleModal}/>}
+        {modalIsOpen && <Modal onSubmit={addTours} closeModal={closeModal}/>}
       </div>
       <TodayWeather data={todayWeather} city={currentCity} tourStart={tourStart} />
     </div>
