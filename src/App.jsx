@@ -1,8 +1,8 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 
-import { ModalWindow } from './components/Modal/Modal';
-import { Searchbar } from './components/Tours/Searchbar';
+import { Modal } from './components/Modal/Modal';
+import { Searchbar } from './components/Tours/Searchbar/Searchbar';
 import { ToursList } from './components/Tours/ToursList';
 import { LongTimeWeather } from './components/Weather/LongTimeWeather';
 import { TodayWeather } from './components/Weather/TodaysWeather';
@@ -80,12 +80,12 @@ setTourStart(startDate)
   
   return (
     <div className="App">
-      <div>
+      <div >
       <h1>Weather Forecast</h1>
       <Searchbar filter={filter} changeFilter={changeFilter} />
       <ToursList tours={getVisibleTours()} toggleModal={toggleModal} getForecast={getForecast} />
         {currentCity!==''&&<LongTimeWeather data={allWeather} />}
-        {modalOpen && <ModalWindow onSubmit={addTours} />}
+        {modalOpen && <Modal onSubmit={addTours} toggleModal={toggleModal}/>}
       </div>
       <TodayWeather data={todayWeather} city={currentCity} tourStart={tourStart} />
     </div>

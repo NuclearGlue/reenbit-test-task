@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types';
+import { SearchInput } from './Serchbar.styled';
 
 export const Searchbar = ({ filter, changeFilter }) => {
   return (
-    <label className="filter">
-      Search your trip
-      <input
-        className="filter__field"
-        type="text"
-        value={filter}
-        onChange={changeFilter}
-      />
-    </label>
+    <SearchInput
+      type="text"
+      value={filter}
+      onChange={changeFilter}
+      placeholder="Search your trip"
+    />
   );
 };
 

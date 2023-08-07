@@ -1,3 +1,5 @@
+import { LongWeatherListItem } from '../WeatherStyles/Weather.styled';
+
 export const DayWeather = ({ info }) => {
   const dayOfWeek = date => {
     const weekday = [
@@ -21,7 +23,7 @@ export const DayWeather = ({ info }) => {
   };
 
   return (
-    <li>
+    <LongWeatherListItem>
       <p>{dayOfWeek(info.datetime)}</p>
       <img
         src={`./icons/${info.icon}.svg`}
@@ -32,6 +34,6 @@ export const DayWeather = ({ info }) => {
       <p>
         {farenheitToCelsius(info.tempmax)}°/{farenheitToCelsius(info.tempmin)}°
       </p>
-    </li>
+    </LongWeatherListItem>
   );
 };

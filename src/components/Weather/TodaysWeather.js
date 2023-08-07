@@ -1,4 +1,14 @@
 import { useTimer } from '../../hooks/useTimer';
+import {
+  TodaysWeatherBlock,
+  TodaysWeatherInfo,
+  TodaysWeatherTimer,
+  TodaysWeatherTimerText,
+  TodaysWeatherTimerItem,
+  TodaysWeatherDay,
+  TodaysWeatherTemp,
+  TodaysWeatherTempC,
+} from './WeatherStyles/Weather.styled';
 
 export const TodayWeather = ({ data, city, tourStart }) => {
   const [days, hours, minutes, seconds] = useTimer(tourStart);
@@ -24,40 +34,47 @@ export const TodayWeather = ({ data, city, tourStart }) => {
     return Math.round(celsius);
   };
 
-  return (
-    <div>
-      <h2>{dayOfWeek()}</h2>
-      <div>
-        <img
-          src={`./icons/${data.icon}.svg`}
-          alt={data.icon}
-          width={300}
-          height={300}
-        />
+  if (tourStart) {
+    return (
+      <TodaysWeatherBlock>
+        <TodaysWeatherDay>{dayOfWeek()}</TodaysWeatherDay>
+        <TodaysWeatherInfo>
+          <img
+            src={`./icons/${data.icon}.svg`}
+            alt={data.icon}
+            width={100}
+            height={100}
+          />
 
-        <p>{farenheitToCelsius(data.temp)}C°</p>
-      </div>
-      <p>{city}</p>
-      {days + hours + minutes + seconds <= 0 ? (
-        <p>Have a nice trip!</p>
-      ) : (
-        <div id="countdown">
-          <ul>
-            <li>
-              <span>{days}</span>DAYS
-            </li>
-            <li>
-              <span>{hours}</span>HOURS
-            </li>
-            <li>
-              <span>{minutes}</span>MINUTES
-            </li>
-            <li>
-              <span>{seconds}</span>SECONDS
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+          <TodaysWeatherTemp>
+            {farenheitToCelsius(data.temp)}
+            <TodaysWeatherTempC>C°</TodaysWeatherTempC>
+          </TodaysWeatherTemp>
+        </TodaysWeatherInfo>
+        <p>{city}</p>
+        {days + hours + minutes + seconds <= 0 ? (
+          <p>Have a nice trip!</p>
+        ) : (
+          <TodaysWeatherTimer>
+            <TodaysWeatherTimerItem>
+              <span>{days}</span>
+              <TodaysWeatherTimerText>Days</TodaysWeatherTimerText>
+            </TodaysWeatherTimerItem>
+            <TodaysWeatherTimerItem>
+              <span>{hours}</span>
+              <TodaysWeatherTimerText>Hours</TodaysWeatherTimerText>
+            </TodaysWeatherTimerItem>
+            <TodaysWeatherTimerItem>
+              <span>{minutes}</span>
+              <TodaysWeatherTimerText>Minutes</TodaysWeatherTimerText>
+            </TodaysWeatherTimerItem>
+            <TodaysWeatherTimerItem>
+              <span>{seconds}</span>
+              <TodaysWeatherTimerText>Seconds</TodaysWeatherTimerText>
+            </TodaysWeatherTimerItem>
+          </TodaysWeatherTimer>
+        )}
+      </TodaysWeatherBlock>
+    );
+  }
 };
