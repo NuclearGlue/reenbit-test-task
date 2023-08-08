@@ -19,7 +19,8 @@ export const AddTourButton = styled.button`
   cursor: pointer;
   padding: 10px;
   &:hover {
-    color: blue;
+    transform: scale(1.03);
+    color: #3498db;
   }
 `;
 
@@ -29,7 +30,7 @@ export const ArrowLeft = styled(BsArrowBarLeft)`
   height: 40px;
   fill: grey;
   &:hover {
-    fill: blue;
+    fill: #3498db;
     transform: scale(1.03);
   }
 `;
@@ -39,7 +40,7 @@ export const ArrowRight = styled(BsArrowBarRight)`
   height: 40px;
   fill: grey;
   &:hover {
-    fill: blue;
+    fill: #3498db;
     transform: scale(1.03);
   }
 `;
@@ -50,7 +51,7 @@ export const BsPlusLgIcon = styled(BsPlusLg)`
   fill: grey;
 
   ${AddTourButton}:hover & {
-    fill: blue;
+    fill: #3498db;
   }
 `;
 

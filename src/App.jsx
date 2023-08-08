@@ -1,14 +1,15 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-
 import { Modal } from './components/Modal/Modal';
 import { Searchbar } from './components/Tours/Searchbar/Searchbar';
 import { ToursList } from './components/Tours/ToursList';
 import { LongTimeWeather } from './components/Weather/LongTimeWeather';
 import { TodayWeather } from './components/Weather/TodaysWeather';
 import { fetchForecast } from './components/helpers/fetchForecast';
+import { GoogleLoginBlock } from './components/GoogleLogin/GoogleLoginBlock';
 
 function App() {
+  
   const [tours, setTours] = useState(!localStorage.getItem("tours")
     ?[
     {
@@ -68,7 +69,6 @@ useEffect(() => {
     setModalIsOpen(true);
   };
 
-
   const closeModal = () => {
     setModalIsOpen(false);
   };
@@ -81,10 +81,12 @@ useEffect(() => {
 setTourStart(startDate)
    };
   
+ 
   return (
     <div className="App">
-      <div >
-      <h1>Weather Forecast</h1>
+      <div>
+        <h1>Weather Forecast</h1>
+        <GoogleLoginBlock/>
       <Searchbar filter={filter} changeFilter={changeFilter} />
       <ToursList tours={getVisibleTours()} openModal={openModal} getForecast={getForecast} />
         {currentCity!==''&&<LongTimeWeather data={allWeather} />}
