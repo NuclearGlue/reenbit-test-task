@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/reenbit-test-task/static/css/main.023166c4.css",
+    "main.js": "/reenbit-test-task/static/js/main.d570713a.js",
+    "static/js/787.1006437c.chunk.js": "/reenbit-test-task/static/js/787.1006437c.chunk.js",
+    "static/media/clouds-background.svg": "/reenbit-test-task/static/media/clouds-background.1fbed72f7f5e5d721734d769350d3afc.svg",
+    "static/media/magnifying-glass.svg": "/reenbit-test-task/static/media/magnifying-glass.90c18e48c96dea120d50c4e1678ca362.svg",
+    "index.html": "/reenbit-test-task/index.html",
+    "main.023166c4.css.map": "/reenbit-test-task/static/css/main.023166c4.css.map",
+    "main.d570713a.js.map": "/reenbit-test-task/static/js/main.d570713a.js.map",
+    "787.1006437c.chunk.js.map": "/reenbit-test-task/static/js/787.1006437c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.023166c4.css",
+    "static/js/main.d570713a.js"
+  ]
+}
